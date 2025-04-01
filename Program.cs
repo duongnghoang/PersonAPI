@@ -17,7 +17,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PersonAPI V1");
+        c.RoutePrefix = string.Empty; // Set Swagger UI as the default page
+    });
     app.MapOpenApi();
 }
 
