@@ -6,31 +6,24 @@ namespace PersonAPI.Controllers;
 
 [ApiController]
 [Route("NashTech/[controller]")]
-public class PersonController : ControllerBase
+public class PersonController(IPersonService personService) : ControllerBase
 {
-    private readonly IPersonService _personService;
-
-    public PersonController(IPersonService personService)
-    {
-        _personService = personService;
-    }
-
     [HttpGet("GetMale")]
     public IEnumerable<Person> GetMale()
     {
-        return _personService.GetPersonsMale();
+        return personService.GetPersonsMale();
     }
 
     [HttpGet("GetOldestAge")]
     public Person? GetOldestPerson()
     {
-        return _personService.GetPersonOldestAge();
+        return personService.GetPersonOldestAge();
     }
 
     [HttpGet("GetFullName")]
     public IEnumerable<string> GetFullNames()
     {
-        return _personService.GetPersonsFullName();
+        return personService.GetPersonsFullName();
     }
 
     [HttpGet("GetBirthYearWithAction")]
@@ -55,25 +48,25 @@ public class PersonController : ControllerBase
     [HttpGet("GetBirthYearLower")]
     public IEnumerable<Person> GetBirthYearLower()
     {
-        return _personService.GetPersonsByBirthYearWithAction("lower");
+        return personService.GetPersonsByBirthYearWithAction("lower");
     }
 
     [HttpGet("GetBirthYearGreater")]
     public IEnumerable<Person> GetBirthYearGreater()
     {
-        return _personService.GetPersonsByBirthYearWithAction("greater");
+        return personService.GetPersonsByBirthYearWithAction("greater");
     }
 
     [HttpGet("GetBirthYearEqual")]
     public IEnumerable<Person> GetBirthYearEqual()
     {
-        return _personService.GetPersonsByBirthYearWithAction("equal");
+        return personService.GetPersonsByBirthYearWithAction("equal");
     }
 
     [HttpPost("ExportToExcel")]
     public IActionResult ExportToExcel()
     {
-        var fileResponse = _personService.ExportToExcel();
+        var fileResponse = personService.ExportToExcel();
 
         return File(fileResponse.FileContent, fileResponse.ContentType, fileResponse.FileName);
     }
