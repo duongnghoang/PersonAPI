@@ -24,6 +24,11 @@ public class FileHelper<T>
                 for (int j = 0; j < properties.Length; j++)
                 {
                     var value = properties[j].GetValue(item, null);
+                    if (value is DateTime dateTime)
+                    {
+                        worksheet.Cell(i + 2, j + 1).Value = dateTime.ToString("dd/MM/yyyy");
+                        continue;
+                    }
                     worksheet.Cell(i + 2, j + 1).Value = value?.ToString();
                 }
             }
@@ -39,6 +44,7 @@ public class FileHelper<T>
             using (var stream = new MemoryStream())
             {
                 workbook.SaveAs(stream);
+
                 return stream.ToArray();
             }
         }
