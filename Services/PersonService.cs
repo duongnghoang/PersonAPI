@@ -32,11 +32,12 @@ public class PersonService : IPersonService
 
     public IEnumerable<Person> GetPersonsByBirthYearWithAction(string action)
     {
-        return action.ToUpper() switch
+        return action switch
         {
-            "GREATER" => _personData.Persons.Where(p => p.DateOfBirth.Year < 2000),
-            "LOWER" => _personData.Persons.Where(p => p.DateOfBirth.Year > 2000),
-            _ => _personData.Persons.Where(p => p.DateOfBirth.Year == 2000),
+            "greater" => _personData.Persons.Where(p => p.DateOfBirth.Year < 2000),
+            "lower" => _personData.Persons.Where(p => p.DateOfBirth.Year > 2000),
+            "equal" => _personData.Persons.Where(p => p.DateOfBirth.Year == 2000),
+            _ => []
         };
     }
 
