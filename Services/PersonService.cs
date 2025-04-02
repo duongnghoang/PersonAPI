@@ -34,8 +34,8 @@ public class PersonService : IPersonService
     {
         return action switch
         {
-            "greater" => _personData.Persons.Where(p => p.DateOfBirth.Year < 2000),
-            "lower" => _personData.Persons.Where(p => p.DateOfBirth.Year > 2000),
+            "greater" => _personData.Persons.Where(p => p.DateOfBirth.Year > 2000),
+            "lower" => _personData.Persons.Where(p => p.DateOfBirth.Year < 2000),
             "equal" => _personData.Persons.Where(p => p.DateOfBirth.Year == 2000),
             _ => []
         };
